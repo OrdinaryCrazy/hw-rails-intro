@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
       
       end
       
-      @movies = Movie.order(params[:sort])
+      @movies = @movies.order(params[:sort])
       
     end
   
