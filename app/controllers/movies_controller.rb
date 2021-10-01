@@ -29,10 +29,15 @@ class MoviesController < ApplicationController
   
       @movies = Movie.with_ratings(@ratings_to_show)
       
-      @movies = @movies.order(params[:sort_by]) if params[:sort_by] != ''
+      if params[:sort_by] != ''
+        @movies = @movies.order(params[:sort_by])
+      
       session[:sort_by] = params[:sort_by]
-      @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} if params[:sort_by]=='title'
-      @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} if params[:sort_by]=='release_date'
+      
+      if params[:sort_by]=='title'
+        @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} 
+      if params[:sort_by]=='release_date'
+        @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} 
       
       # @movies = Movie.order(params[:sort])
       
