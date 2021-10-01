@@ -11,27 +11,30 @@ class MoviesController < ApplicationController
       
       @all_ratings = Movie.all_ratings
 
-      if !params.has_key?(:ratings)
-        @ratings_to_show = []
-      else
-        @ratings_to_show = params[:ratings].keys
+      if !session.key?(:ratings) || !session.key?(:sort_by)
+        @all_ratings_hash = Hash[@all_ratings.collect {|key| [key, '1']}]
+        session[:ratings] = @all_ratings_hash if !session.key?(:ratings)
+        session[:sort_by] = '' if !session.key?(:ratings)
+        redirect_to movies_path(:ratings => @all_ratings_hash, :sort_by => '') and return
       end
+      
+      if (!params.has_key?(:ratings) && session.key?(:ratings)) ||
+         (!params.has_key?(:sort_by) && session.key?(:sort_by))
+        redirect_to movies_path(:ratings => Hash[session[:ratings].collect {|key| [key, '1']}], :sort_by => session[:sort_by]) and return
+      end
+  
+      @ratings_to_show = params[:ratings].keys
+      @ratings_to_show_hash = Hash[@ratings_to_show.collect {|key| [key, '1']}]
+      session[:ratings] = @ratings_to_show
   
       @movies = Movie.with_ratings(@ratings_to_show)
       
+      @movies = @movies.order(params[:sort_by]) if params[:sort_by] != ''
+      session[:sort_by] = params[:sort_by]
+      @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} if params[:sort_by]=='title'
+      @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} if params[:sort_by]=='release_date'
       
-      hiliteFlag = params[:sort] 
-      
-      case hiliteFlag
-      
-        when 'title'
-          @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
-        when 'release_date'
-          @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
-      
-      end
-      
-      @movies = @movies.order(params[:sort])
+      # @movies = Movie.order(params[:sort])
       
     end
   
