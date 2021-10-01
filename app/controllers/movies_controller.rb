@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
       @ratings_to_show_hash = Hash[@ratings_to_show.collect {|key| [key, '1']}]
       session[:ratings] = @ratings_to_show
   
-      @movies = Movie.with_ratings(@ratings_to_show)
+      @movies = Movie.with_ratings(@ratings_to_show_hash)
       
       if params[:sort_by] != ''
         @movies = @movies.order(params[:sort_by])
@@ -35,12 +35,14 @@ class MoviesController < ApplicationController
       session[:sort_by] = params[:sort_by]
       
       if params[:sort_by] == 'title'
-        @title = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+        # @title = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+        @title = 'hilite bg-warning'
       else
         @title = ''
       
       if params[:sort_by] == 'release_date'
-        @rdate = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+        # @rdate = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+        @rdate = 'hilite bg-warning'
       else
         @rdate = ''
       
