@@ -34,10 +34,15 @@ class MoviesController < ApplicationController
       
       session[:sort_by] = params[:sort_by]
       
-      if params[:sort_by]=='title'
-        @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} 
-      if params[:sort_by]=='release_date'
-        @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"} 
+      if params[:sort_by] == 'title'
+        @title = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+      else
+        @title = ''
+      
+      if params[:sort_by] == 'release_date'
+        @rdate = 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
+      else
+        @rdate = ''
       
       # @movies = Movie.order(params[:sort])
       
