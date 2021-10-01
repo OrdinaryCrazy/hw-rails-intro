@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
       
       @movies = Movie.order(params[:sort])
       
-      @all_ratings = Movie.all_ratings
+      @all_ratings = @movies.all_ratings
 
       if !params.has_key?(:ratings)
         @ratings_to_show = []
@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
         @ratings_to_show = params[:ratings].keys
       end
   
-      @movies = Movie.with_ratings(@ratings_to_show)
+      @movies = @movies.with_ratings(@ratings_to_show)
       
     end
   
