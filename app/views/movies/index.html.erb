@@ -7,12 +7,12 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th class = "<%=@title%>">
-        <%= link_to "Movie Title", movies_path(:sort => "title"), :id => "title_header" %>
+      <th class="<%=@title%>">
+        <%= link_to "Movie Title", movies_path(:sort_by => "title"), :id => "title_header" %>
       </th>
       <th>Rating</th>
-      <th class = "<%=@rdate%>"
-        <%= link_to "Release Date", movies_path(:sort => "release_date"), :id => "release_date_header" %>
+      <th class="<%=@rdate%>"
+        <%= link_to "Release Date", movies_path(:sort_by => "release_date"), :id => "release_date_header" %>
       </th>
       <th>More Info</th>
     </tr>
