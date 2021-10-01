@@ -13,9 +13,9 @@ class MoviesController < ApplicationController
       case hiliteFlag
       
         when 'title'
-          @title = {:title => :asc}, 'hilite'
+          @title = {:title => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
         when 'release_date'
-          @rdate = {:release_date => :asc}, 'hilite'
+          @rdate = {:release_date => :asc}, 'hilite', {:class => "p-3 mb-2 bg-warning text-dark"}
       
       end
       
