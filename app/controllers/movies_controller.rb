@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
         @ratings_to_show = params[:ratings].keys
       end
   
-      temp_movie = Movie.with_ratings(@ratings_to_show)
+      @movies = Movie.with_ratings(@ratings_to_show)
       
       
       hiliteFlag = params[:sort] 
@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
       
       end
       
-      @movies = temp_movie.order(params[:sort])
+      @movies = Movie.order(params[:sort])
       
     end
   
