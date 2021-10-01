@@ -52,7 +52,7 @@ class MoviesController < ApplicationController
         @title = ''
         @rdate = ''
       end
-      # @movies = Movie.order(params[:sort])
+      @movies = Movie.order(params[:sort])
       
     end
   
