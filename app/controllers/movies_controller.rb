@@ -8,15 +8,19 @@ class MoviesController < ApplicationController
   
     def index
       # @movies = Movie.all
-      @all_ratings = Movie.all_ratings
+      hiliteFlag = params[:sort] 
       
-      if !params.has_key?(:ratings)
-        @ratings_to_show = []
-      else
-        @ratings_to_show = params[:ratings].keys
+      case hiliteFlag
+      
+        when 'title'
+          @title = {:title => :asc}, 'hilite'
+        when 'release_date'
+          @rdate = {:release_date => :asc}, 'hilite'
+      
       end
       
-      @movies = Movie.with_ratings(@ratings_to_show)
+      @movies = Movie.order(params[:sort])
+      
     end
   
     def new
